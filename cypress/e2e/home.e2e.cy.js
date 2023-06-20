@@ -58,10 +58,11 @@ describe("Home E2E", () => {
 	  
 		cy.visit("/");
 	  
-		cy.get(".block-button").click(); // revisar nombre correcto del button
+		cy.get(".block").click(); // Revisar el nombre correcto del botón
 	  
-		cy.get(".user-status").should("have.text", "Bloqueado"); // Cambiar quizas que sea por color verde o por texto dentro
-	});
+		cy.get(".user-status").should("have.text", "unblock"); // Cambiar por el texto correcto o alguna otra forma de verificar que el usuario fue bloqueado
+	  });
+	  
 	  
 	  
   
