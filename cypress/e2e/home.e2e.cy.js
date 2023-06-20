@@ -26,4 +26,48 @@ describe("Home E2E", () => {
 			cy.url().should("eq", `${Cypress.config().baseUrl}/login?login_error=1`);
 		});
 	});
+
+	it("Home not verified", () => {
+		cy.window().then((win) => {
+		  win.localStorage.clear();
+		});
+	
+		cy.login("a.vera07@ufromail.cl", "1Qaz2wsx#"); // usuario no verificado
+	
+		cy.visit("/");
+	
+		cy.url().should("eq", `${Cypress.config().baseUrl}/verify?verify_error=1`);
+	});
+
+	it("Obtener RUT al hacer click en la card", () => {
+		cy.login("john@example.com", "2aSsword95%");
+	  
+		cy.visit("/");
+	  
+		cy.get(".user-card").click(); // tengo que saber el nombre del atributo del avatar
+	  
+		cy.get(".modal-content")
+		  .should("be.visible")
+		  .within(() => {
+			cy.get(".user-rut-full").should("contain.text", "22.222.222-2");
+		});
+	});
+
+	it("Bloquear usuario", () => {
+		cy.login("john@example.com", "2aSsword95%");
+	  
+		cy.visit("/");
+	  
+		cy.get(".block-button").click(); // revisar nombre correcto del button
+	  
+		cy.get(".user-status").should("have.text", "Bloqueado"); // Cambiar quizas que sea por color verde o por texto dentro
+	});
+	  
+	  
+  
 });
+
+
+
+ 
+  
