@@ -46,6 +46,6 @@ describe("Verification E2E", () => {
 
 
 
-	  // El usuario que antes no estaba verificado se verificó y por eso estan fallando las pruebas pero la implementacion esta correcta
+	  // El usuario que antes no estaba verificado se verificó y por eso estan fallando las pruebas pero la implementacion esta correcta???? duda
 	  
 });
