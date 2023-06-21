@@ -39,31 +39,45 @@ describe("Home E2E", () => {
 		cy.url().should("eq", `${Cypress.config().baseUrl}/verify?verify_error=1`);
 	});
 
-	it("Obtener RUT al hacer click en la card", () => {
+	it("Get RUT by clicking on the card", () => {
 		cy.login("john@example.com", "2aSsword95%");
 	  
 		cy.visit("/");
 	  
-		cy.get(".user-card").click(); // tengo que saber el nombre del atributo del avatar
+		cy.get(".").click(); // tengo que saber el nombre del atributo del avatar
 	  
 		cy.get(".modal-content")
 		  .should("be.visible")
 		  .within(() => {
-			cy.get(".user-rut-full").should("contain.text", "22.222.222-2");
+			cy.get(".").should("contain.text", "22.222.222-2");
 		});
 	});
 
-	it("Bloquear usuario", () => {
-		cy.login("john@example.com", "2aSsword95%");
+	it("Block user", () => {
+		cy.login("m.vera14@ufromail.cl", "Garza12#");
 	  
 		cy.visit("/");
 	  
-		cy.get(".block").click(); // Revisar el nombre correcto del botón
+		cy.get("div")
+            .find('button[class="q-btn q-btn-item non-selectable no-outline q-btn--standard q-btn--rectangle bg-red text-white q-btn--actionable q-focusable q-hoverable"]').should("contain.text", "block").click();
 	  
-		cy.get(".user-status").should("have.text", "unblock"); // Cambiar por el texto correcto o alguna otra forma de verificar que el usuario fue bloqueado
+			cy.get('div[class="q-itemlabel q-itemlabel--caption text-caption"]').should('contain', 'This user is blocked');
+	});
+	
+    it("Unblock user", () => {
+		cy.login("m.vera14@ufromail.cl", "Garza12#");
+	  
+		cy.visit("/");
+	  
+		cy.get('button.q-btn.q-btn-item.non-selectable.no-outline.q-btn--standard.q-btn--rectangle.bg-red.text-white.q-btn--actionable.q-focusable.q-hoverable').should("contain.text", "block").click();
+	  
+		cy.get('div.q-itemlabel.q-itemlabel--caption.text-caption').should('contain', 'This user is blocked');
+	  
+		cy.get('button.q-btn.q-btn-item.non-selectable.no-outline.q-btn--standard.q-btn--rectangle.bg-green.text-white.q-btn--actionable.q-focusable.q-hoverable').should("contain.text", "unblock").click();
+	  
+		cy.get('div.q-itemlabel.q-itemlabel--caption.text-caption').should('contain', 'This user is unblocked');
 	  });
 	  
-	  
-	  
-  
+	
+
 });
