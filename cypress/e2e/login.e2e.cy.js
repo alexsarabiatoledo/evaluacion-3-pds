@@ -37,6 +37,7 @@ describe("Login E2E", () => {
 		cy.url().should("eq", `${Cypress.config().baseUrl}/login`);
 	});
 
+	//Funcionaría si fuese una cuenta no verificada (en su momento funcionó)
 	it("Correct login with unverified user", () => {
 		cy.visit("/login");
 		cy.get('input[type="email"]').type("a.vera07@ufromail.cl");
